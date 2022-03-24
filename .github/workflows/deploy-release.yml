@@ -1,0 +1,56 @@
+name: Build a Zip and Deploy a Release
+on:
+  release:
+    types: [unpublished,published]
+
+jobs:
+  tag:
+    name: New release
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Install PHP
+      uses: shivammathur/setup-php@2.16.0
+      with:
+        php-version: 7.4
+
+    - name: Build
+      run: |
+        # Remove contents of our vendor directory.
+        rm -rf vendor;
+        rm -f composer.lock;
+
+        # Remove dependencies we have prefixed.
+        composer remove composer/installers --update-no-dev
+
+        # Install non dev deps.
+        composer install --no-dev --optimize-autoloader
+
+    - name: Install zip
+      uses: montudor/action-zip@v1
+
+    - name: Zip output
+      run: zip -X -r ./boxuk-skeleton-plugin.zip . -x "*.git**" "*tests**" "*tools**" "*features**" "*DEVELOPMENT.md" "*behat.yml" "*phpunit.xml.dist" "*phpcs.xml.dist" "*bin**" "*.DS_Store" "*travis.yml" "*docker-compose.yml" "*rector-downgrade.php"
+
+    - name: Upload artifact
+      uses: actions/upload-artifact@v2
+      with:
+          name: boxuk-skeleton-plugin
+          path: ./boxuk-skeleton-plugin.zip
+
+    - name: Upload to release
+      uses: JasonEtco/upload-to-release@master
+      with:
+        args: ./boxuk-skeleton-plugin.zip application/zip
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+#    - name: WordPress Plugin Deploy
+#      uses: 10up/action-wordpress-plugin-deploy@1.4.1
+#      env:
+#        SLUG: boxuk-skeleton-plugin
+#        SVN_USERNAME: ${{ secrets.WPORG_SVN_USERNAME }}
+#        SVN_PASSWORD: ${{ secrets.WPORG_SVN_PASSWORD }}

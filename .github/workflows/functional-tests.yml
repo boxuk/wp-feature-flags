@@ -1,0 +1,88 @@
+name: Functional Tests
+on:
+    push:
+        branches:
+            - 'main'
+        paths:
+            - '.github/workflows/functional-tests.yml'
+            - 'behat.yml'
+            - 'bin/behat.sh'
+            - 'composer.json'
+            - 'features/**'
+            - 'wp-plugin-skeleton.php'
+    pull_request:
+        branches:
+            - '**'
+        paths:
+            - '.github/workflows/functional-tests.yml'
+            - 'behat.yml'
+            - 'bin/behat.sh'
+            - 'composer.json'
+            - 'features/**'
+            - 'wp-plugin-skeleton.php'
+
+jobs:
+    build:
+        strategy:
+            matrix:
+                php: ['7.2', '7.3', '7.4']
+                wp: ['5.0', '*', 'dev-nightly'] # from packagist
+                exclude:
+                    # excludes php 7.4 on WP 5.0
+                    - php: 7.4
+                      wp: 5.0
+            fail-fast: false
+        name: PHP ${{ matrix.php }} / WP ${{ matrix.wp }} / Woo ${{ matrix.woocommerce }}
+        runs-on: ubuntu-18.04
+        timeout-minutes: 10
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v1
+
+            - name: Get Composer cache directory
+              id: composer-cache
+              run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+
+            - name: Composer cache
+              uses: actions/cache@v2
+              env:
+                  cache-name: cache-composer-dependencies
+              with:
+                  path: ${{ steps.composer-cache.outputs.dir }}
+                  key: ${{ matrix.php }}-composer-${{ hashFiles('composer.json') }}
+
+            - name: Install PHP
+              uses: shivammathur/setup-php@2.16.0
+              with:
+                  php-version: ${{ matrix.php }}
+                  extensions: mysqli
+                  ini-values: error_reporting=E_ALL & ~E_DEPRECATED & ~E_NOTICE
+              env:
+                  fail-fast: true
+
+            - name: Install dependencies
+              run: |
+                  sudo systemctl start mysql.service
+                  composer install --prefer-dist
+                  composer require --dev --update-with-dependencies --prefer-dist roots/wordpress=${{ matrix.wp }} || *                  
+
+            - name: Debugging
+              run: |
+                  php --version
+                  php -m
+                  composer --version
+                  composer info roots/wordpress
+                  mysql --version
+
+            - name: Run Chromedriver
+              uses: nanasess/setup-chromedriver@master
+
+            - run: |
+                export DISPLAY=:99
+                chromedriver --url-base=/wd/hub &
+                sudo Xvfb -ac :99 -screen 0 1280x1024x24 > /dev/null 2>&1 & # optional
+
+            - name: Run the tests
+              run: PLUGIN_NAME=wp-plugin-skeleton bin/behat.sh
+              env:
+                  WP_TESTS_DB_PASS: root

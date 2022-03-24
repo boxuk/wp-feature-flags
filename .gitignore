@@ -1,0 +1,14 @@
+/vendor/
+/tools/*/vendor
+/composer.lock
+/.phpcs.xml
+/phpcs.xml
+/phpunit.xml
+/.phpunit.result.cache
+/src/lib/
+/src/lib/__classes
+/tests/wp/
+/db
+/bin/selenium*
+selenium.log
+.env

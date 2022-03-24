@@ -1,0 +1,16 @@
+.boxuk-settings-header {
+    display: flex;
+    align-items: flex-start;
+    max-width: 120px;
+}
+
+.boxuk-settings-header h1 {
+    flex: 1;
+    padding-top: 11px;
+}
+
+.boxuk-settings-header img {
+    width: 150px;
+    height: auto;
+    filter: drop-shadow(3px 3px 5px rgba(0,0,0,.8));
+}
