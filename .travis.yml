@@ -31,7 +31,7 @@ install:
     - travis_retry composer install -a --no-scripts
 
 before_script:
-    - mysql -e 'CREATE DATABASE IF NOT EXISTS boxuk_wordpress_plugin_test;'
+    - mysql -e 'CREATE DATABASE IF NOT EXISTS wp_feature_flags_test;'
     - mkdir -p $HOME/.cache/phpcs/
 
 script:

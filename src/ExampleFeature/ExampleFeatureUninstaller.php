@@ -2,12 +2,12 @@
 /**
  * Example feature uninstall class.
  *
- * @package BoxUk\WpPluginSkeleton
+ * @package BoxUk\WpFeatureFlags
  */
 
 declare ( strict_types=1 );
 
-namespace BoxUk\WpPluginSkeleton\ExampleFeature;
+namespace BoxUk\WpFeatureFlags\ExampleFeature;
 
 final class ExampleFeatureUninstaller {
 	/**

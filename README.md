@@ -1,6 +1,6 @@
-# Box UK WordPress Plugin Skeleton
+# WP Feature Flags
 
-A skeleton plugin to be used as the base for new Box UK WordPress plugins.
+A plugin used to manage the publishing of features.
 
 ## Development Documentation
 

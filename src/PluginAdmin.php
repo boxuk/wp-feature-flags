@@ -2,14 +2,14 @@
 /**
  * Controller for the plugin Admin App.
  *
- * @package BoxUk\WpPluginSkeleton
+ * @package BoxUk\WpFeatureFlags
  */
 
 declare ( strict_types=1 );
 
-namespace BoxUk\WpPluginSkeleton;
+namespace BoxUk\WpFeatureFlags;
 
-use BoxUk\WpPluginSkeleton\Admin\PluginSettings;
+use BoxUk\WpFeatureFlags\Admin\PluginSettings;
 
 class PluginAdmin {
 	/**
@@ -30,8 +30,8 @@ class PluginAdmin {
 	 * @return void
 	 */
 	public static function enqueue_admin_styles(): void {
-		wp_enqueue_style( BOXUK_PLUGIN_SKELETON_PREFIX . '-admin-styles', BOXUK_PLUGIN_SKELETON_PLUGIN_URL . 'assets/css/' . BOXUK_PLUGIN_SKELETON_PREFIX . '-admin.css', [], BOXUK_PLUGIN_SKELETON_VERSION );
-		wp_enqueue_style( BOXUK_PLUGIN_SKELETON_PREFIX . '-dashicons', BOXUK_PLUGIN_SKELETON_PLUGIN_URL . 'assets/css/' . BOXUK_PLUGIN_SKELETON_PREFIX . '-icon.css', [], BOXUK_PLUGIN_SKELETON_VERSION );
+		wp_enqueue_style( WP_FEATURE_FLAGS_PREFIX . '-admin-styles', WP_FEATURE_FLAGS_PLUGIN_URL . 'assets/css/' . WP_FEATURE_FLAGS_PREFIX . '-admin.css', [], WP_FEATURE_FLAGS_VERSION );
+		wp_enqueue_style( WP_FEATURE_FLAGS_PREFIX . '-dashicons', WP_FEATURE_FLAGS_PLUGIN_URL . 'assets/css/' . WP_FEATURE_FLAGS_PREFIX . '-icon.css', [], WP_FEATURE_FLAGS_VERSION );
 	}
 
 	/**
@@ -40,6 +40,6 @@ class PluginAdmin {
 	 * @return void
 	 */
 	public static function enqueue_admin_scripts(): void {
-		wp_enqueue_script( BOXUK_PLUGIN_SKELETON_PREFIX . '-admin-script', BOXUK_PLUGIN_SKELETON_PLUGIN_URL . 'assets/js/' . BOXUK_PLUGIN_SKELETON_PREFIX . '-admin.js', [], BOXUK_PLUGIN_SKELETON_VERSION, true );
+		wp_enqueue_script( WP_FEATURE_FLAGS_PREFIX . '-admin-script', WP_FEATURE_FLAGS_PLUGIN_URL . 'assets/js/' . WP_FEATURE_FLAGS_PREFIX . '-admin.js', [], WP_FEATURE_FLAGS_VERSION, true );
 	}
 }

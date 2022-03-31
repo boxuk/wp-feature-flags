@@ -2,14 +2,14 @@
 /**
  * The management and co-ordination of the main features of the plugin.
  *
- * @package BoxUk\WpPluginSkeleton
+ * @package BoxUk\WpFeatureFlags
  */
 
 declare ( strict_types=1 );
 
-namespace BoxUk\WpPluginSkeleton;
+namespace BoxUk\WpFeatureFlags;
 
-use BoxUk\WpPluginSkeleton\ExampleFeature\ExampleFeature;
+use BoxUk\WpFeatureFlags\ExampleFeature\ExampleFeature;
 
 class FeatureManager {
 	/**

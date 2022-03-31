@@ -2,7 +2,7 @@
 /**
  * Context class for our behat features.
  *
- * @package BoxUk\WpPluginSkeleton
+ * @package BoxUk\WpFeatureFlags
  */
 
 declare ( strict_types=1 );

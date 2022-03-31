@@ -2,12 +2,12 @@
 /**
  * Interface that all features should adhere to.
  *
- * @package BoxUk\WpPluginSkeleton
+ * @package BoxUk\WpFeatureFlags
  */
 
 declare( strict_types=1 );
 
-namespace BoxUk\WpPluginSkeleton;
+namespace BoxUk\WpFeatureFlags;
 
 interface FeatureInterface {
 	/**

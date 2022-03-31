@@ -1,7 +1,7 @@
 /**
  * Javascript for the plugin.
  *
- * @package BoxUk\WpPluginSkeleton
+ * @package BoxUk\WpFeatureFlags
  */
 
 document.addEventListener(

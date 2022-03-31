@@ -2,12 +2,12 @@
 /**
  * Uninstaller for the plugin.
  *
- * @package BoxUk\WpPluginSkeleton
+ * @package BoxUk\WpFeatureFlags
  */
 
 declare ( strict_types=1 );
 
-namespace BoxUk\WpPluginSkeleton;
+namespace BoxUk\WpFeatureFlags;
 
 class PluginUninstaller {
 	/**
@@ -46,7 +46,7 @@ class PluginUninstaller {
 	private function delete_settings(): void {
 		global $wpdb;
 
-		$plugin_prefix = BOXUK_PLUGIN_SKELETON_PREFIX;
+		$plugin_prefix = WP_FEATURE_FLAGS_PREFIX;
 		$wpdb->query( "DELETE FROM {$wpdb->options} WHERE option_name LIKE '{$plugin_prefix}_%'" ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
 	}
 }

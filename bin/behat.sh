@@ -9,7 +9,7 @@ WP_CORE_DIR="${PWD}/tests/wp"
 WP_URL="localhost:8000"
 
 # Specify the name of the plugin, as could differ on build envs
-PLUGIN_NAME="${PLUGIN_NAME:-wp-plugin-skeleton}"
+PLUGIN_NAME="${PLUGIN_NAME:-wp-feature-flags}"
 
 # Shorthand:
 WP="./vendor/bin/wp --color --path=$WP_CORE_DIR --url=http://$WP_URL"

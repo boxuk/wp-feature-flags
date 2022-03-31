@@ -2,19 +2,19 @@
 /**
  * Plugin Settings.
  *
- * @package BoxUk\WpPluginSkeleton
+ * @package BoxUk\WpFeatureFlags
  */
 
 declare ( strict_types=1 );
 
-namespace BoxUk\WpPluginSkeleton\Admin;
+namespace BoxUk\WpFeatureFlags\Admin;
 
-use BoxUk\WpPluginSkeleton\PluginSettingsManager;
+use BoxUk\WpFeatureFlags\PluginSettingsManager;
 
 class PluginSettings {
 	private const MENU_POSITION = 80;
-	private const OPTION_GROUP_NAME = BOXUK_PLUGIN_SKELETON_PREFIX . '_settings';
-	private const PAGE = BOXUK_PLUGIN_SKELETON_PREFIX;
+	private const OPTION_GROUP_NAME = WP_FEATURE_FLAGS_PREFIX . '_settings';
+	private const PAGE = WP_FEATURE_FLAGS_PREFIX;
 
 	/**
 	 * PluginSettings Initialization.
@@ -37,7 +37,7 @@ class PluginSettings {
 			__( 'BoxUK', 'boxuk' ),
 			__( 'BoxUK', 'boxuk' ),
 			'manage_options',
-			BOXUK_PLUGIN_SKELETON_PREFIX . '-settings',
+			WP_FEATURE_FLAGS_PREFIX . '-settings',
 			[ __CLASS__, 'add_menu_page_content' ],
 			'dashicons-boxuk-icon',
 			self::MENU_POSITION
@@ -53,7 +53,7 @@ class PluginSettings {
 		echo '<div class="wrap">';
 		echo '<div class="boxuk-settings-header">';
 		echo '<h1 class="wp-heading-inline">';
-		echo '<img src="' . esc_url( BOXUK_PLUGIN_SKELETON_PLUGIN_URL . 'assets/img/logo.svg' ) . '" alt="Box UK logo" />';
+		echo '<img src="' . esc_url( WP_FEATURE_FLAGS_PLUGIN_URL . 'assets/img/logo.svg' ) . '" alt="Box UK logo" />';
 		echo '</h1>';
 		echo '</div>';
 		echo '<hr class="wp-header-end" />';
@@ -74,7 +74,7 @@ class PluginSettings {
 	public static function add_register_setting(): void {
 		register_setting(
 			self::OPTION_GROUP_NAME,
-			BOXUK_PLUGIN_SKELETON_PREFIX . '_enable_plugin'
+			WP_FEATURE_FLAGS_PREFIX . '_enable_plugin'
 		);
 
 		add_settings_section(
@@ -86,13 +86,13 @@ class PluginSettings {
 
 		// Enable plugin.
 		add_settings_field(
-			BOXUK_PLUGIN_SKELETON_PREFIX . '_enable_plugin',
+			WP_FEATURE_FLAGS_PREFIX . '_enable_plugin',
 			__( 'Enable Plugin', 'boxuk' ),
 			[ __CLASS__, 'boxuk_enable_plugin_field_html' ],
 			self::PAGE,
 			self::OPTION_GROUP_NAME . '_section_id',
 			[
-				'label_for' => BOXUK_PLUGIN_SKELETON_PREFIX . '_enable_plugin',
+				'label_for' => WP_FEATURE_FLAGS_PREFIX . '_enable_plugin',
 				'class' => 'boxuk-class',
 			]
 		);
@@ -105,7 +105,7 @@ class PluginSettings {
 	 */
 	public static function boxuk_enable_plugin_field_html(): void {
 		?>
-		<input type="checkbox" name="<?php echo esc_attr( BOXUK_PLUGIN_SKELETON_PREFIX . '_enable_plugin' ); ?>" id="<?php echo esc_attr( BOXUK_PLUGIN_SKELETON_PREFIX . '_enable_plugin' ); ?>" value="1" <?php checked( true, PluginSettingsManager::is_enabled(), true ); ?> />
+		<input type="checkbox" name="<?php echo esc_attr( WP_FEATURE_FLAGS_PREFIX . '_enable_plugin' ); ?>" id="<?php echo esc_attr( WP_FEATURE_FLAGS_PREFIX . '_enable_plugin' ); ?>" value="1" <?php checked( true, PluginSettingsManager::is_enabled(), true ); ?> />
 		<?php
 	}
 

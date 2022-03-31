@@ -7,8 +7,8 @@ This is a guide for software engineers who wish to take part in the development 
 
 If you just want to bring down the repository and get a zip of the plugin for uploading to a WordPress install you can do so with the following steps:
 
-1. `git clone git@github.com:boxuk/wp-plugin-skeleton.git`
-2. `cd wp-plugin-skeleton`
+1. `git clone git@github.com:boxuk/wp-feature-flags.git`
+2. `cd wp-feature-flags`
 3. `bin/prepare-zip.sh` (requires [composer](https://getcomposer.org))
 
 This will create a `boxuk-skeleton-plugin.zip` file in the current directory which you can then use to upload to a WordPress install.
@@ -24,7 +24,7 @@ There are two main ways to setup the plugin for development.
 
 It can be useful to set-up the plugin as a standalone library to just run the tests or to run static analysis.
 
-* Clone the repository `git clone https://github.com/boxuk/wp-plugin-skeleton`
+* Clone the repository `git clone https://github.com/boxuk/wp-feature-flags`
 * Run [composer](https://getcomposer.org/) `composer install`
 * Install the tools `composer install-tools`
 > This will install PHP CodeSniffer within the tools directory.
@@ -55,15 +55,15 @@ You can either clone directly into the `plugins` directory of your WordPress sit
     ]
 ```
 
-You can then install the plugin as you would a regular composer library, e.g. `composer req boxuk/wp-plugin-skeleton`
+You can then install the plugin as you would a regular composer library, e.g. `composer req boxuk/wp-feature-flags`
 it can be useful to remove the plugin first for updates to ensure you're getting the latest and greatest, and thus a script in the main `composer.json`
 such as the following is useful:
 
 ```json
     "scripts": {
         "update-plugin": [
-            "rm -rf wp-content/plugins/wp-plugin-skeleton",
-            "@composer update boxuk/wp-plugin-skeleton"
+            "rm -rf wp-content/plugins/wp-feature-flags",
+            "@composer update boxuk/wp-feature-flags"
         ]
     }
 ```
