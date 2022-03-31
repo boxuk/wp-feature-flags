@@ -2,13 +2,13 @@
 /**
  * Uninstaller for the plugin.
  *
- * @package BoxUk\WpPluginSkeleton
+ * @package BoxUk\WpFeatureFlags
  */
 
 declare ( strict_types=1 );
 
-use BoxUk\WpPluginSkeleton\FeatureManager;
-use BoxUk\WpPluginSkeleton\PluginUninstaller;
+use BoxUk\WpFeatureFlags\FeatureManager;
+use BoxUk\WpFeatureFlags\PluginUninstaller;
 
 if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 	exit;
@@ -23,16 +23,16 @@ if ( ! class_exists( PluginUninstaller::class ) ) {
 	return;
 }
 
-if ( ! defined( 'BOXUK_PLUGIN_SKELETON_PREFIX' ) ) {
-	define( 'BOXUK_PLUGIN_SKELETON_PREFIX', 'boxuk' );
+if ( ! defined( 'WP_FEATURE_FLAGS_PREFIX' ) ) {
+	define( 'WP_FEATURE_FLAGS_PREFIX', 'boxuk' );
 }
 
 add_action(
-	BOXUK_PLUGIN_SKELETON_PREFIX . '_plugin_uninstall',
+	WP_FEATURE_FLAGS_PREFIX . '_plugin_uninstall',
 	function () {
 		$uninstaller = new PluginUninstaller( new FeatureManager() );
 		$uninstaller->uninstall();
 	}
 );
 
-do_action( BOXUK_PLUGIN_SKELETON_PREFIX . '_plugin_uninstall' );
+do_action( WP_FEATURE_FLAGS_PREFIX . '_plugin_uninstall' );

@@ -35,7 +35,7 @@ require_once $tests_dir . '/includes/functions.php';
 
 tests_add_filter( 'muplugins_loaded', static function() {
 	// test set up, plugin activation, etc.
-	require dirname( __DIR__ ) . '/wp-plugin-skeleton.php';
+	require dirname( __DIR__ ) . '/wp-feature-flags.php';
 } );
 
 // Start up the WP testing environment.

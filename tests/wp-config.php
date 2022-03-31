@@ -48,7 +48,7 @@ define( 'WP_PLUGIN_DIR', dirname( __DIR__, 2 ) );
 // These tests will DROP ALL TABLES in the database with the prefix named below.
 // DO NOT use a production database or one that is shared with something else.
 
-define( 'DB_NAME', getenv( 'WP_TESTS_DB_NAME' ) ?: 'boxuk_wordpress_plugin_test' );
+define( 'DB_NAME', getenv( 'WP_TESTS_DB_NAME' ) ?: 'wp_feature_flags_test' );
 define( 'DB_USER', getenv( 'WP_TESTS_DB_USER' ) ?: 'root' );
 define( 'DB_PASSWORD', getenv( 'WP_TESTS_DB_PASS' ) ?: '' );
 define( 'DB_HOST', getenv( 'WP_TESTS_DB_HOST' ) ?: 'localhost' );
@@ -60,7 +60,7 @@ $table_prefix = 'wp_';   // Only numbers, letters, and underscores please!
 // Test suite configuration.
 define( 'WP_TESTS_DOMAIN', 'example.org' );
 define( 'WP_TESTS_EMAIL', 'admin@example.org' );
-define( 'WP_TESTS_TITLE', 'Box UK WordPress Plugin Tests' );
+define( 'WP_TESTS_TITLE', 'WP Feature Flags Tests' );
 define( 'WP_PHP_BINARY', 'php' );
 
 define( 'WPLANG', '' );

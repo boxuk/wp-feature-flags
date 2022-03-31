@@ -2,7 +2,7 @@
 
 declare( strict_types=1 );
 
-namespace BoxUk\WpPluginSkeleton\Tests\Unit;
+namespace BoxUk\WpFeatureFlags\Tests\Unit;
 
 use Yoast\PHPUnitPolyfills\TestCases\TestCase;
 

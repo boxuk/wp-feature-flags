@@ -9,7 +9,7 @@ on:
             - 'bin/behat.sh'
             - 'composer.json'
             - 'features/**'
-            - 'wp-plugin-skeleton.php'
+            - 'wp-feature-flags.php'
     pull_request:
         branches:
             - '**'
@@ -19,7 +19,7 @@ on:
             - 'bin/behat.sh'
             - 'composer.json'
             - 'features/**'
-            - 'wp-plugin-skeleton.php'
+            - 'wp-feature-flags.php'
 
 jobs:
     build:
@@ -64,7 +64,7 @@ jobs:
               run: |
                   sudo systemctl start mysql.service
                   composer install --prefer-dist
-                  composer require --dev --update-with-dependencies --prefer-dist roots/wordpress=${{ matrix.wp }} || *                  
+                  composer require --dev --update-with-dependencies --prefer-dist roots/wordpress=${{ matrix.wp }} || *
 
             - name: Debugging
               run: |
@@ -83,6 +83,6 @@ jobs:
                 sudo Xvfb -ac :99 -screen 0 1280x1024x24 > /dev/null 2>&1 & # optional
 
             - name: Run the tests
-              run: PLUGIN_NAME=wp-plugin-skeleton bin/behat.sh
+              run: PLUGIN_NAME=wp-feature-flags bin/behat.sh
               env:
                   WP_TESTS_DB_PASS: root
