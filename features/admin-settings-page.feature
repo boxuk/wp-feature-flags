@@ -9,5 +9,5 @@ Feature: Login as an administrator
         When I go to the dashboard
 
     Scenario: Confirm settings page is present
-        When I go to the "BoxUK" menu
-        Then I should see "Enable plugin"
+        When I go to the "Feature flags" menu
+        Then I should see "Available flags"

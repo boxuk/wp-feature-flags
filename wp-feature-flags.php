@@ -33,8 +33,8 @@ if ( ! defined( 'WPINC' ) ) {
 	exit;
 }
 
-define( 'WP_FEATURE_FLAGS_VERSION', '1.0.0' );
-define( 'WP_FEATURE_FLAGS_PREFIX', 'boxuk' );
+define( 'WP_FEATURE_FLAGS_VERSION', '0.1' );
+define( 'WP_FEATURE_FLAGS_PREFIX', 'wp-feature-flags' );
 
 $plugin_base_url = plugin_dir_url( __FILE__ );
 define( 'WP_FEATURE_FLAGS_PLUGIN_URL', $plugin_base_url );

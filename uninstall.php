@@ -24,7 +24,7 @@ if ( ! class_exists( PluginUninstaller::class ) ) {
 }
 
 if ( ! defined( 'WP_FEATURE_FLAGS_PREFIX' ) ) {
-	define( 'WP_FEATURE_FLAGS_PREFIX', 'boxuk' );
+	define( 'WP_FEATURE_FLAGS_PREFIX', 'wp-feature-flags' );
 }
 
 add_action(
