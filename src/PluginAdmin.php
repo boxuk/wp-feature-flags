@@ -41,5 +41,20 @@ class PluginAdmin {
 	 */
 	public static function enqueue_admin_scripts(): void {
 		wp_enqueue_script( WP_FEATURE_FLAGS_PREFIX . '-admin-script', WP_FEATURE_FLAGS_PLUGIN_URL . 'assets/js/' . WP_FEATURE_FLAGS_PREFIX . '-admin.js', [], WP_FEATURE_FLAGS_VERSION, true );
+
+		wp_localize_script(
+			WP_FEATURE_FLAGS_PREFIX . '-admin-script',
+			'WPFFAdmin',
+			[
+				'ajaxUrl' => admin_url( 'admin-ajax.php' ),
+				'secret' => wp_create_nonce( 'wp_feature_flags_admin_secret' ),
+				'i18n' => [
+					'publish' => __( 'Publish', 'wp-feature-flags' ),
+					'unpublish' => __( 'Unpublish', 'wp-feature-flags' ),
+					'on' => __( 'On', 'wp-feature-flags' ),
+					'off' => __( 'Off', 'wp-feature-flags' ),
+				],
+			]
+		);
 	}
 }

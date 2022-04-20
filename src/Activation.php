@@ -9,6 +9,8 @@ declare ( strict_types=1 );
 
 namespace BoxUk\WpFeatureFlags;
 
+use BoxUk\WpFeatureFlags\DatabaseManager\DatabaseManager;
+
 class Activation {
 	/**
 	 * Run any tasks we need at activation.
@@ -16,6 +18,7 @@ class Activation {
 	 * @return void
 	 */
 	public static function activate(): void {
-		// Add any activation tasks here.
+		$database_manager = new DatabaseManager();
+		$database_manager->init();
 	}
 }

@@ -1,15 +1,15 @@
 <?php
 /**
- * Example feature uninstall class.
+ * Flag register uninstall class.
  *
  * @package BoxUk\WpFeatureFlags
  */
 
 declare ( strict_types=1 );
 
-namespace BoxUk\WpFeatureFlags\ExampleFeature;
+namespace BoxUk\WpFeatureFlags\FlagRegister;
 
-final class ExampleFeatureUninstaller {
+final class FlagRegisterUninstaller {
 	/**
 	 * Uninstall method to remove any data added by the plugin.
 	 *

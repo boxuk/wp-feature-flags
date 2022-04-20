@@ -9,8 +9,18 @@ declare ( strict_types=1 );
 
 namespace BoxUk\WpFeatureFlags\Admin;
 
+use BoxUk\WpFeatureFlags\Flag\Flag;
+use BoxUk\WpFeatureFlags\FlagRegister\FlagRegister;
+
 class PluginSettings {
 	private const MENU_POSITION = 80;
+
+	/**
+	 * Flag register class.
+	 *
+	 * @var FlagRegister
+	 */
+	public $flag_register;
 
 	/**
 	 * PluginSettings Initialization.
@@ -74,8 +84,28 @@ class PluginSettings {
 		echo '<p>' . esc_html__( 'The following flags can be used to publish or unpublish features to this site.', 'wp-feature-flags' ) . '</p>';
 		echo '<p>' . esc_html__( 'Flags that have been marked as \'unstable\' will not be publishable.', 'wp-feature-flags' ) . '</p>';
 
-		// Get available flags.
-		self::display_flag_table( [] );
+		$flag_register = new FlagRegister();
+		$flag_register->init();
+
+		// Get all available flags and groups.
+		$registered_flags = $flag_register->get_all_registered_flags();
+		$flag_groups = $flag_register->get_unique_groups( $registered_flags );
+
+		if ( count( $flag_groups ) > 1 ) {
+			// For each flag group.
+			foreach ( $flag_groups as $flag_group ) {
+				// Filter flags by group.
+				$group_flags = $flag_register->get_flags_by_group(
+					$registered_flags,
+					$flag_group
+				);
+
+				// Display the group flag table.
+				self::display_flag_table( $group_flags, $flag_group );
+			}
+		} else {
+			self::display_flag_table( $registered_flags );
+		}
 	}
 
 	/**
@@ -106,7 +136,7 @@ class PluginSettings {
 				continue;
 			}
 
-			echo esc_html( $flag_meta['label'] ) . ' ';
+			echo '<strong>' . esc_html( $flag_meta['label'] ) . ':</strong> ';
 
 			if ( true === array_key_exists( 'link', $flag_meta ) ) {
 				echo '<a href="' . esc_url( $flag_meta['link'] ) . '" target="_blank" title="' . esc_attr( $flag_meta['value'] ) . '">';
@@ -128,16 +158,22 @@ class PluginSettings {
 	/**
 	 * Converts a list of feature flags into a table.
 	 *
-	 * @todo functioning submit button, functioning preview button
-	 * @param  array $flag_list List of flags.
+	 * @param array  $flag_list List of flags.
+	 * @param string $group_title Title of the flag group, if one exists.
 	 * @return void
 	 */
-	public static function display_flag_table( array $flag_list ): void {
+	public static function display_flag_table( array $flag_list, string $group_title = '' ): void {
 		if ( 0 === count( $flag_list ) ) {
 			return;
 		}
 
+		if ( '' !== $group_title ) :
+			?>
+			<h4><?php echo esc_html( $group_title ); ?></h4>
+			<?php
+		endif;
 		?>
+
 		<table class="widefat wp-feature-flags-table">
 			<thead>
 				<tr>
@@ -161,50 +197,87 @@ class PluginSettings {
 			<tbody>
 				<?php
 				foreach ( $flag_list as $flag_key => $flag_detail ) :
+					$flag = new Flag(
+						$flag_key,
+						$flag_detail['name'],
+						$flag_detail['description'],
+						$flag_detail['meta'],
+						$flag_detail['group'],
+						$flag_detail['enforced'],
+						$flag_detail['stable']
+					);
+
 					// Set up preview button variables.
-					$preview_button_text = __( 'Preview', 'wp-feature-flags' );
-					$preview_button_class = 'primary small';
-					$preview_button_name = 'wp-feature-flags-preview-on';
+					$preview_button_text = __( 'On', 'wp-feature-flags' );
+					$preview_button_class = 'primary small wp-feature-flags__button';
+					$preview_button_name = 'wp-feature-flags-preview';
 					$preview_button_args = [
 						'class' => 'action-btn',
-						'data-action' => 'togglePreview',
-						'data-status' => 'on',
+						'data-action' => 'toggle_preview',
+						'data-toggle' => 'on',
+						'data-flag' => $flag_key,
 					];
+
+					if ( $flag->in_preview_state() ) {
+						$preview_button_text = __( 'Off', 'wp-feature-flags' );
+						$preview_button_args['data-toggle'] = 'off';
+					}
 
 					// Set up publish/unpublish button variables.
 					$publish_button_text = __( 'Publish', 'wp-feature-flags' );
-					$publish_button_class = 'primary small';
+					$publish_button_class = 'primary small wp-feature-flags__button';
 					$publish_button_name = 'wp-feature-flags-publish';
 					$publish_button_args = [
-						'data-action' => 'publishFeature',
+						'data-action' => 'toggle_feature',
+						'data-toggle' => 'on',
+						'data-flag' => $flag_key,
 					];
 
-					if (
-						( array_key_exists( 'stable', $flag_detail ) && false === $flag_detail['stable'] ) ||
-						( array_key_exists( 'enforced', $flag_detail ) && true === $flag_detail['enforced'] )
-					) {
+					if ( $flag->is_published() ) {
+						$publish_button_text = __( 'Unpublish', 'wp-feature-flags' );
+						$publish_button_args['data-toggle'] = 'off';
+
+						// Published flags cannot be previewed.
+						$preview_button_args['disabled'] = true;
+					}
+
+					if ( false === $flag->is_stable() || $flag->is_enforced() ) {
 						$preview_button_args['disabled'] = true;
 						$publish_button_args['disabled'] = true;
 					}
-
 					?>
 					<tr>
 						<td class="title">
 							<strong>
-								<?php echo esc_html( $flag_detail['title'] ); ?>
+								<?php echo esc_html( $flag->get_name() ); ?>
 							</strong>
+							<?php
+							if ( false === $flag->is_stable() || $flag->is_enforced() ) :
+								if ( $flag->is_enforced() ) {
+									$status_message = __( 'Enforced feature', 'wp-feature-flags' );
+									$status_class = 'wp-feature-flags__status-label--info';
+								} else {
+									$status_message = __( 'Unstable feature', 'wp-feature-flags' );
+									$status_class = 'wp-feature-flags__status-label--warning';
+								}
+								?>
+								<br />
+								<span class="wp-feature-flags__status-label <?php echo esc_attr( $status_class ); ?>">
+									<?php echo esc_html( $status_message ); ?>
+								</span>
+							<?php endif; ?>
 						</td>
 						<td>
 							<code>
-								<?php echo esc_html( $flag_key ); ?>
+								<?php echo esc_html( $flag->get_key() ); ?>
 							</code>
 						</td>
 						<td>
 							<?php
-							echo '<p>' . esc_html( $flag_detail['description'] ) . '</p>';
+							echo '<p>' . esc_html( $flag->get_description() ) . '</p>';
 
-							if ( array_key_exists( 'meta', $flag_detail ) && [] !== $flag_detail['meta'] ) {
-								self::display_flag_metadata( $flag_detail['meta'] );
+							if ( [] !== $flag->get_meta() ) {
+								self::display_flag_metadata( $flag->get_meta() );
 							}
 							?>
 

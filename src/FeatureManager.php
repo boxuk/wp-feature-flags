@@ -9,7 +9,7 @@ declare ( strict_types=1 );
 
 namespace BoxUk\WpFeatureFlags;
 
-use BoxUk\WpFeatureFlags\ExampleFeature\ExampleFeature;
+use BoxUk\WpFeatureFlags\FlagRegister\FlagRegister;
 
 class FeatureManager {
 	/**
@@ -18,7 +18,7 @@ class FeatureManager {
 	 * @var FeatureInterface[]
 	 */
 	private const FEATURES = [
-		ExampleFeature::class,
+		FlagRegister::class,
 	];
 
 	/**
