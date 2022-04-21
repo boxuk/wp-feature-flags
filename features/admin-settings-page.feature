@@ -11,3 +11,4 @@ Feature: Login as an administrator
     Scenario: Confirm settings page is present
         When I go to the "Feature flags" menu
         Then I should see "Available flags"
+        Then I should see "Enforced flags"

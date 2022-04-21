@@ -44,7 +44,7 @@ define( 'WP_FEATURE_FLAGS_PLUGIN_URL', $plugin_base_url );
  *
  * @return bool
  */
-function boxuk_plugin_autoload(): bool { // phpcs:ignore NeutronStandard.Globals.DisallowGlobalFunctions.GlobalFunctions
+function wp_feature_flags_plugin_autoload(): bool { // phpcs:ignore NeutronStandard.Globals.DisallowGlobalFunctions.GlobalFunctions
 	$autoloader = __DIR__ . '/vendor/autoload.php';
 	if ( file_exists( $autoloader ) ) {
 		require_once $autoloader; // phpcs:ignore WordPressVIPMinimum.Files.IncludingFile.UsingVariable
@@ -53,7 +53,7 @@ function boxuk_plugin_autoload(): bool { // phpcs:ignore NeutronStandard.Globals
 	return class_exists( Plugin::class );
 }
 
-if ( ! boxuk_plugin_autoload() ) {
+if ( ! wp_feature_flags_plugin_autoload() ) {
 	return;
 }
 
