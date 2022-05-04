@@ -1,16 +1,16 @@
 {
-    "name": "boxuk/wp-plugin-skeleton",
-    "description": "A skeleton WordPress plugin to be used as a base for new WordPress plugins.",
+    "name": "boxuk/wp-feature-flags",
+    "description": "A feature flag manager and register for releasing features across environments.",
     "type": "wordpress-plugin",
     "license": "GPL-3.0-or-later",
     "autoload": {
         "psr-4": {
-            "BoxUk\\WpPluginSkeleton\\": "src/"
+            "BoxUk\\WpFeatureFlags\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "BoxUk\\WpPluginSkeleton\\Tests\\": "tests/"
+            "BoxUk\\WpFeatureFlags\\Tests\\": "tests/"
         }
     },
     "extra": {

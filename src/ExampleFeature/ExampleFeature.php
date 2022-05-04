@@ -2,14 +2,14 @@
 /**
  * Example feature class.
  *
- * @package BoxUk\WpPluginSkeleton
+ * @package BoxUk\WpFeatureFlags
  */
 
 declare ( strict_types=1 );
 
-namespace BoxUk\WpPluginSkeleton\ExampleFeature;
+namespace BoxUk\WpFeatureFlags\ExampleFeature;
 
-use BoxUk\WpPluginSkeleton\FeatureInterface;
+use BoxUk\WpFeatureFlags\FeatureInterface;
 
 final class ExampleFeature implements FeatureInterface {
 	private const FEATURE_LABEL = 'example';

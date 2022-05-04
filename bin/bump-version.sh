@@ -5,7 +5,7 @@
 
 set -e
 
-main_plugin_file="${2:-wp-plugin-skeleton.php}"
+main_plugin_file="${2:-wp-feature-flags.php}"
 
 if [ "$1" == "major" ] || [ "$1" == "minor" ] || [ "$1" == "patch" ]; then
 

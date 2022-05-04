@@ -1,18 +1,18 @@
 <?php
 /**
- * Box UK WordPress Plugin.
+ * WP Feature Flags.
  *
- * @package BoxUk\WpPluginSkeleton
+ * @package BoxUk\WpFeatureFlags
  * @author Box UK
  * @copyright 2022 Box UK
  * @license GPL-3.0-or-later
  *
  * @wordpress-plugin
- * Plugin Name: Box UK WordPress Plugin Skeleton.
- * Description: A skeleton WordPress plugin to be used as a base for new WordPress plugins.
+ * Plugin Name: WP Feature Flags
+ * Description: A plugin used to manage the publishing of features.
  * Author: Box UK
  * Author URI: https://www.boxuk.com/
- * Version: 1.0.0
+ * Version: 0.1
  * License: GPLv3+
  * License URI: https://www.gnu.org/licenses/gpl-3.0.txt
  * Text Domain: boxuk
@@ -24,27 +24,27 @@
 
 declare ( strict_types=1 );
 
-use BoxUk\WpPluginSkeleton\Activation;
-use BoxUk\WpPluginSkeleton\FeatureManager;
-use BoxUk\WpPluginSkeleton\Plugin;
+use BoxUk\WpFeatureFlags\Activation;
+use BoxUk\WpFeatureFlags\FeatureManager;
+use BoxUk\WpFeatureFlags\Plugin;
 
 // If this file is called directly, abort.
 if ( ! defined( 'WPINC' ) ) {
 	exit;
 }
 
-define( 'BOXUK_PLUGIN_SKELETON_VERSION', '1.0.0' );
-define( 'BOXUK_PLUGIN_SKELETON_PREFIX', 'boxuk' );
+define( 'WP_FEATURE_FLAGS_VERSION', '0.1' );
+define( 'WP_FEATURE_FLAGS_PREFIX', 'wp-feature-flags' );
 
 $plugin_base_url = plugin_dir_url( __FILE__ );
-define( 'BOXUK_PLUGIN_SKELETON_PLUGIN_URL', $plugin_base_url );
+define( 'WP_FEATURE_FLAGS_PLUGIN_URL', $plugin_base_url );
 
 /**
  * Make sure we can access the autoloader, and it works.
  *
  * @return bool
  */
-function boxuk_plugin_autoload(): bool { // phpcs:ignore NeutronStandard.Globals.DisallowGlobalFunctions.GlobalFunctions
+function wp_feature_flags_plugin_autoload(): bool { // phpcs:ignore NeutronStandard.Globals.DisallowGlobalFunctions.GlobalFunctions
 	$autoloader = __DIR__ . '/vendor/autoload.php';
 	if ( file_exists( $autoloader ) ) {
 		require_once $autoloader; // phpcs:ignore WordPressVIPMinimum.Files.IncludingFile.UsingVariable
@@ -53,7 +53,7 @@ function boxuk_plugin_autoload(): bool { // phpcs:ignore NeutronStandard.Globals
 	return class_exists( Plugin::class );
 }
 
-if ( ! boxuk_plugin_autoload() ) {
+if ( ! wp_feature_flags_plugin_autoload() ) {
 	return;
 }
 

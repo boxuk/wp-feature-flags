@@ -2,7 +2,7 @@
 /**
  * Configuration for rector downgrading of newer PHP code.
  *
- * @package BoxUk\WpPluginSkeleton
+ * @package BoxUk\WpFeatureFlags
  */
 
 declare( strict_types=1 );

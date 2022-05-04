@@ -2,7 +2,7 @@
 /**
  * Useful trait for checking arrays within feature files.
  *
- * @package BoxUk\WpPluginSkeleton
+ * @package BoxUk\WpFeatureFlags
  */
 
 declare ( strict_types=1 );

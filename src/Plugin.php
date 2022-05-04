@@ -2,12 +2,12 @@
 /**
  * Main Controller for the plugin.
  *
- * @package BoxUk\WpPluginSkeleton
+ * @package BoxUk\WpFeatureFlags
  */
 
 declare ( strict_types=1 );
 
-namespace BoxUk\WpPluginSkeleton;
+namespace BoxUk\WpFeatureFlags;
 
 class Plugin {
 	/**
@@ -51,7 +51,7 @@ class Plugin {
 	 * @return void
 	 */
 	public static function enqueue_styles(): void {
-		wp_enqueue_style( BOXUK_PLUGIN_SKELETON_PREFIX . '-frontend-styles', BOXUK_PLUGIN_SKELETON_PLUGIN_URL . 'assets/css/' . BOXUK_PLUGIN_SKELETON_PREFIX . '-frontend.css', [], BOXUK_PLUGIN_SKELETON_VERSION );
+		wp_enqueue_style( WP_FEATURE_FLAGS_PREFIX . '-frontend-styles', WP_FEATURE_FLAGS_PLUGIN_URL . 'assets/css/' . WP_FEATURE_FLAGS_PREFIX . '-frontend.css', [], WP_FEATURE_FLAGS_VERSION );
 	}
 
 	/**
@@ -60,6 +60,6 @@ class Plugin {
 	 * @return void
 	 */
 	public static function enqueue_scripts(): void {
-		wp_enqueue_style( BOXUK_PLUGIN_SKELETON_PREFIX . '-frontend-scripts', BOXUK_PLUGIN_SKELETON_PLUGIN_URL . 'assets/js/' . BOXUK_PLUGIN_SKELETON_PREFIX . '-frontend.js', [], BOXUK_PLUGIN_SKELETON_VERSION );
+		wp_enqueue_style( WP_FEATURE_FLAGS_PREFIX . '-frontend-scripts', WP_FEATURE_FLAGS_PLUGIN_URL . 'assets/js/' . WP_FEATURE_FLAGS_PREFIX . '-frontend.js', [], WP_FEATURE_FLAGS_VERSION );
 	}
 }
