@@ -88,7 +88,6 @@ final class FlagRegister implements FeatureInterface {
 		// Create AJAX actions for toggling flags.
 		add_action( 'wp_ajax_toggle_feature', [ $this, 'ajax_toggle_feature' ] );
 		add_action( 'wp_ajax_toggle_preview', [ $this, 'ajax_toggle_preview' ] );
-
 	}
 
 	/**
@@ -231,6 +230,45 @@ final class FlagRegister implements FeatureInterface {
 		$flag_arr['parent'] = $flag_arr['parent'] ?? '';
 
 		return $flag_arr;
+	}
+
+	/**
+	 * Function for adding a flag to the register without using apply_filters.
+	 *
+	 * @param string  $flag_key Unique identifier for the flag.
+	 * @param string  $flag_name Name of the flag.
+	 * @param string  $flag_description Description of the flag.
+	 * @param array   $flag_meta Array of meta key and value pairs for the flag.
+	 * @param string  $flag_group Group the flag belongs to.
+	 * @param boolean $is_enforced Whether or not the flag is enforced.
+	 * @param boolean $is_stable Whether or not hte flag is stable.
+	 * @param string  $parent_flag Parent of this flag, if one exists.
+	 * @return void
+	 */
+	public function set_registered_flag(
+		string $flag_key,
+		string $flag_name,
+		string $flag_description,
+		array $flag_meta = [],
+		string $flag_group = self::DEFAULT_GROUP,
+		bool $is_enforced = false,
+		bool $is_stable = false,
+		string $parent_flag = ''
+	): void {
+		$flag_arr = [
+			'key' => $flag_key,
+			'name' => $flag_name,
+			'description' => $flag_description,
+			'meta' => $flag_meta,
+			'group' => $flag_group,
+			'enforced' => $is_enforced,
+			'stable' => $is_stable,
+			'parent' => $parent_flag,
+		];
+
+		$flag_arr = $this->set_flag_defaults( $flag_arr );
+
+		$this->flag_register[ $flag_key ] = $flag_arr;
 	}
 
 	/**

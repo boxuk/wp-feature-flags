@@ -100,11 +100,129 @@ class FlagTest extends TestCase {
 	}
 
 	/**
+	 * Test is_on returns false if the flag is unstable.
+	 *
+	 * @return void
+	 */
+	public function test_flag_is_on_returns_false_if_unstable(): void {
+		$on_flag = new Flag(
+			'test-flag',
+			'Test flag',
+			'This is a test flag',
+			[],
+			'Test group',
+			false,
+			false
+		);
+
+		self::assertFalse( $on_flag->is_on() );
+	}
+
+	/**
+	 * Test is_on returns true if the flag is enforced.
+	 *
+	 * @return void
+	 */
+	public function test_flag_is_on_returns_true_if_enforced(): void {
+		$on_flag = new Flag(
+			'test-flag',
+			'Test flag',
+			'This is a test flag',
+			[],
+			'Test group',
+			true,
+			true
+		);
+
+		self::assertTrue( $on_flag->is_on() );
+	}
+
+	// in_preview_state
+	// - can_be_published
+	// - is_published
+
+	/**
+	 * Test the Flag class to confirm the can_be_published function returns true when the flag is stable.
+	 *
+	 * @return void
+	 */
+	public function test_flag_can_be_published(): void {
+		$flag = new Flag(
+			'can-be-published-test',
+			'Can be published test',
+			'This is a can be published test flag',
+			[],
+			'Test group',
+			false,
+			true
+		);
+
+		self::assertTrue( $flag->can_be_published() );
+	}
+
+	/**
+	 * Test the Flag class to confirm the can_be_published function returns false when the flag is unstable.
+	 *
+	 * @return void
+	 */
+	public function test_unstable_flag_can_be_published_is_false(): void {
+		$flag = new Flag(
+			'can-be-published-test',
+			'Can be published test',
+			'This is a can be published test flag',
+			[],
+			'Test group',
+			false,
+			false
+		);
+
+		self::assertFalse( $flag->can_be_published() );
+	}
+
+	/**
+	 * Test the Flag class to confirm the can_be_published function returns false when the flag is enforced.
+	 *
+	 * @return void
+	 */
+	public function test_enforced_flag_can_be_published_is_false(): void {
+		$flag = new Flag(
+			'can-be-published-test',
+			'Can be published test',
+			'This is a can be published test flag',
+			[],
+			'Test group',
+			true,
+			true
+		);
+
+		self::assertFalse( $flag->can_be_published() );
+	}
+
+	/**
+	 * Test the Flag class to confirm the can_be_published function returns true when the flag is unstable.
+	 *
+	 * @return void
+	 */
+	public function test_enforced_and_unstable_flag_can_be_published_is_false(): void {
+		$flag = new Flag(
+			'can-be-published-test',
+			'Can be published test',
+			'This is a can be published test flag',
+			[],
+			'Test group',
+			true,
+			false
+		);
+
+		self::assertFalse( $flag->can_be_published() );
+	}
+
+	/**
 	 * Tests the Flag class to confirm the publish attribute is set as expected.
 	 *
 	 * @return void
 	 */
-	public function test_flag_enforced_is_enabled(): void {
+	public function test_flag_enforced_is_published(): void {
 		$enforced_flag = new Flag(
 			'enabled-test',
 			'Enabled test',
