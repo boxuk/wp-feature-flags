@@ -27,6 +27,8 @@ declare ( strict_types=1 );
 use BoxUk\WpFeatureFlags\Activation;
 use BoxUk\WpFeatureFlags\FeatureManager;
 use BoxUk\WpFeatureFlags\Plugin;
+use BoxUk\WpFeatureFlags\Flag\Flag;
+use BoxUk\WpFeatureFlags\FlagRegister\FlagRegister;
 
 // If this file is called directly, abort.
 if ( ! defined( 'WPINC' ) ) {
@@ -34,7 +36,11 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 define( 'WP_FEATURE_FLAGS_VERSION', '0.1' );
+// Kebab case - used for URLs, folder names.
 define( 'WP_FEATURE_FLAGS_PREFIX', 'wp-feature-flags' );
+
+// Snake case - used in functions, filter names, database values.
+define( 'WP_FEATURE_FLAGS_PREFIX_SNAKE', 'wp_feature_flags' );
 
 $plugin_base_url = plugin_dir_url( __FILE__ );
 define( 'WP_FEATURE_FLAGS_PLUGIN_URL', $plugin_base_url );

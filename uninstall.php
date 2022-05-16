@@ -23,16 +23,16 @@ if ( ! class_exists( PluginUninstaller::class ) ) {
 	return;
 }
 
-if ( ! defined( 'WP_FEATURE_FLAGS_PREFIX' ) ) {
-	define( 'WP_FEATURE_FLAGS_PREFIX', 'wp-feature-flags' );
+if ( ! defined( 'WP_FEATURE_FLAGS_PREFIX_SNAKE' ) ) {
+	define( 'WP_FEATURE_FLAGS_PREFIX_SNAKE', 'wp_feature_flags' );
 }
 
 add_action(
-	WP_FEATURE_FLAGS_PREFIX . '_plugin_uninstall',
+	WP_FEATURE_FLAGS_PREFIX_SNAKE . '_plugin_uninstall',
 	function () {
 		$uninstaller = new PluginUninstaller( new FeatureManager() );
 		$uninstaller->uninstall();
 	}
 );
 
-do_action( WP_FEATURE_FLAGS_PREFIX . '_plugin_uninstall' );
+do_action( WP_FEATURE_FLAGS_PREFIX_SNAKE . '_plugin_uninstall' );
