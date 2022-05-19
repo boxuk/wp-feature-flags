@@ -50,6 +50,13 @@ final class FlagRegister implements FeatureInterface {
 	public $preview_flags = [];
 
 	/**
+	 * FlagRegister instance.
+	 *
+	 * @var FlagRegister
+	 */
+	private static $instance = null;
+
+	/**
 	 * Label for this feature.
 	 *
 	 * @return string
@@ -68,7 +75,25 @@ final class FlagRegister implements FeatureInterface {
 	}
 
 	/**
+	 * Get FlagRegister instance. If it doesn't exist yet it will be created.
+	 *
+	 * @return FlagRegister
+	 */
+	public static function get_instance(): FlagRegister {
+		if ( null === static::$instance ) {
+			static::$instance = new FlagRegister();
+			static::$instance->init();
+		}
+
+		static::$instance->flag_register = apply_filters( WP_FEATURE_FLAGS_PREFIX_SNAKE . '_register_flags', static::$instance->flag_register );
+		return static::$instance;
+	}
+
+	/**
 	 * Init method to initialise the feature.
+	 *
+	 * TODO: Refactor this if we go with singleton approach (the functionality should be
+	 * moved to a private function)
 	 *
 	 * @return void
 	 */

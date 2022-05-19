@@ -84,8 +84,7 @@ class PluginSettings {
 		echo '<p>' . esc_html__( 'The following flags can be used to publish or unpublish features to this site.', 'wp-feature-flags' ) . '</p>';
 		echo '<p>' . esc_html__( 'Flags that have been marked as \'unstable\' will not be publishable.', 'wp-feature-flags' ) . '</p>';
 
-		$flag_register = new FlagRegister();
-		$flag_register->init();
+		$flag_register = FlagRegister::get_instance();
 
 		// Get all available flags and groups.
 		$registered_flags = $flag_register->get_all_registered_flags();

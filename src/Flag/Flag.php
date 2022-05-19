@@ -268,8 +268,7 @@ final class Flag implements FeatureInterface {
 			return false;
 		}
 
-		$flag_register = new FlagRegister();
-		$flag_register->init();
+		$flag_register = FlagRegister::get_instance();
 
 		if ( in_array( $this->flag_key, $flag_register->get_preview_flags(), true ) ) {
 			return true;
@@ -313,8 +312,7 @@ final class Flag implements FeatureInterface {
 			return true;
 		}
 
-		$flag_register = new FlagRegister();
-		$flag_register->init();
+		$flag_register = FlagRegister::get_instance();
 
 		// Flags with a published setting are published.
 		if ( in_array( $this->flag_key, $flag_register->get_published_flags(), true ) ) {
