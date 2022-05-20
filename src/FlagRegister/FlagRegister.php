@@ -264,6 +264,18 @@ final class FlagRegister implements FeatureInterface {
 	 * @return void
 	 */
 	public function set_flag_publish_status( string $flag_key, bool $flag_published = false ): void {
+		/**
+		 * If loading the wp-feature-flags plugin very early, publishing flags fails without first
+		 * updating the flag register.
+		 *
+		 * The init() method in this class is run before the flag is added to the filter, so we need
+		 * to apply_filters to get the latest flags.
+		 *
+		 * TODO: Figure out if there's any other places we might need to do this, and probably create
+		 * a function for it.
+		 */
+		$this->flag_register = apply_filters( WP_FEATURE_FLAGS_PREFIX_SNAKE . '_register_flags', $this->flag_register );
+
 		$flag = $this->get_flag_by_key( $flag_key );
 
 		if ( $flag->is_published() === $flag_published ) {

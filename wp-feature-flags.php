@@ -27,7 +27,6 @@ declare ( strict_types=1 );
 use BoxUk\WpFeatureFlags\Activation;
 use BoxUk\WpFeatureFlags\FeatureManager;
 use BoxUk\WpFeatureFlags\Plugin;
-use BoxUk\WpFeatureFlags\Flag\Flag;
 use BoxUk\WpFeatureFlags\FlagRegister\FlagRegister;
 
 // If this file is called directly, abort.
@@ -57,6 +56,18 @@ function wp_feature_flags_plugin_autoload(): bool { // phpcs:ignore NeutronStand
 	}
 
 	return class_exists( Plugin::class );
+}
+
+/**
+ * Check if a given flag is enabled.
+ *
+ * @param string $flag_key Flag key.
+ * @return bool
+ */
+function feature_flag_enabled( string $flag_key = '' ): bool { // phpcs:ignore NeutronStandard.Globals.DisallowGlobalFunctions.GlobalFunctions
+	$flag_register = new FlagRegister();
+	$flag_register->init();
+	return $flag_register->get_flag_by_key( $flag_key )->is_on();
 }
 
 if ( ! wp_feature_flags_plugin_autoload() ) {
