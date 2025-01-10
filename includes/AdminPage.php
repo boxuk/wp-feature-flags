@@ -22,8 +22,8 @@ class AdminPage {
 	 * @return void
 	 */
 	public function init(): void {
-		add_action( 'admin_menu', array( $this, 'add_settings_menu_page' ) );
-		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
+		add_action( 'admin_menu', [ $this, 'add_settings_menu_page' ] );
+		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_scripts' ] );
 	}
 
 	/**
@@ -38,7 +38,7 @@ class AdminPage {
 			__( 'Feature flags', 'boxuk' ),
 			'manage_options',
 			self::PREFIX,
-			array( $this, 'add_menu_page_content' ),
+			[ $this, 'add_menu_page_content' ],
 		);
 	}
 
@@ -76,14 +76,14 @@ class AdminPage {
 		wp_enqueue_style(
 			self::PREFIX . '-admin',
 			$this->get_asset_url( 'index.css' ),
-			array(),
+			[],
 			$asset['version']
 		);
 
 		wp_enqueue_style(
 			self::PREFIX . '-admin-style',
 			$this->get_asset_url( 'style-index.css' ),
-			array(),
+			[],
 			$asset['version']
 		);
 

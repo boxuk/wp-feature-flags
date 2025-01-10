@@ -138,8 +138,8 @@ class Flag implements JsonSerializable {
 	 * @return array<int>
 	 */
 	public function get_users(): array {
-		$users = array();
-		foreach ( get_users( array( 'fields' => 'ID' ) ) as $user_id ) {
+		$users = [];
+		foreach ( get_users( [ 'fields' => 'ID' ] ) as $user_id ) {
 			$user_flags = $this->get_user_flags( absint( $user_id ) );
 			if ( in_array( $this, $user_flags, true ) ) {
 				$users[] = absint( $user_id );
@@ -190,7 +190,7 @@ class Flag implements JsonSerializable {
 	 * @return array{key:string,name:string,description:string,created:DateTime|null,group:string,force_enabled:bool,force_disabled:bool,is_published:bool,users:array<int>}
 	 */
 	public function jsonSerialize(): array {
-		return array(
+		return [
 			'key'            => $this->key,
 			'name'           => $this->name,
 			'description'    => $this->description,
@@ -200,7 +200,7 @@ class Flag implements JsonSerializable {
 			'force_disabled' => $this->force_disabled,
 			'is_published'   => $this->is_published(),
 			'users'          => $this->get_users(),
-		);
+		];
 	}
 
 	/**
@@ -259,8 +259,8 @@ class Flag implements JsonSerializable {
 		$published_flags = get_option( $option_key );
 
 		if ( ! is_array( $published_flags ) ) {
-			update_option( $option_key, array(), true );
-			return array();
+			update_option( $option_key, [], true );
+			return [];
 		}
 
 		return Sanitizer::sanitize_flags( $published_flags );
@@ -282,8 +282,8 @@ class Flag implements JsonSerializable {
 		$user_flags = get_user_meta( $user_id, $meta_key, true );
 
 		if ( ! is_array( $user_flags ) ) {
-			add_user_meta( $user_id, $meta_key, array(), true );
-			return array();
+			add_user_meta( $user_id, $meta_key, [], true );
+			return [];
 		}
 
 		return Sanitizer::sanitize_flags( $user_flags );

@@ -23,7 +23,7 @@ class Sanitizer {
 	 */
 	public static function sanitize_flags( mixed $input ): array { 
 		if ( ! is_array( $input ) ) {
-			return array();
+			return [];
 		}
 
 		return array_filter(

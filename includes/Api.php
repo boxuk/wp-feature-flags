@@ -49,7 +49,7 @@ class Api extends WP_REST_Controller {
 	 * Initialize the API.
 	 */
 	public function init(): void {
-		add_action( 'rest_api_init', array( $this, 'register_routes' ) );
+		add_action( 'rest_api_init', [ $this, 'register_routes' ] );
 	}
 
 	/**
@@ -59,21 +59,21 @@ class Api extends WP_REST_Controller {
 		register_rest_route(
 			$this->namespace,
 			'/flags',
-			array(
+			[
 				'methods'             => \WP_REST_Server::READABLE,
-				'callback'            => array( $this, 'get_items' ),
-				'permission_callback' => array( $this, 'get_items_permissions_check' ),
-			)
+				'callback'            => [ $this, 'get_items' ],
+				'permission_callback' => [ $this, 'get_items_permissions_check' ],
+			]
 		);
 
 		register_rest_route(
 			$this->namespace,
 			$this->rest_base . '/' . $this->id_lookup,
-			array(
+			[
 				'methods'             => \WP_REST_Server::EDITABLE,
-				'callback'            => array( $this, 'update_item' ),
-				'permission_callback' => array( $this, 'update_item_permissions_check' ),
-			)
+				'callback'            => [ $this, 'update_item' ],
+				'permission_callback' => [ $this, 'update_item_permissions_check' ],
+			]
 		);
 	}
 
@@ -88,7 +88,7 @@ class Api extends WP_REST_Controller {
 		if ( current_user_can( 'manage_options' ) ) {
 			return true;
 		}
-		return new WP_Error( 'rest_forbidden', esc_html__( 'You do not have permissions to manage flags.', 'boxuk' ), array( 'status' => 401 ) );
+		return new WP_Error( 'rest_forbidden', esc_html__( 'You do not have permissions to manage flags.', 'boxuk' ), [ 'status' => 401 ] );
 	}
 
 	/**
@@ -111,7 +111,7 @@ class Api extends WP_REST_Controller {
 		if ( current_user_can( 'manage_options' ) ) {
 			return true;
 		}
-		return new WP_Error( 'rest_forbidden', esc_html__( 'You do not have permissions to manage flags.', 'boxuk' ), array( 'status' => 401 ) );
+		return new WP_Error( 'rest_forbidden', esc_html__( 'You do not have permissions to manage flags.', 'boxuk' ), [ 'status' => 401 ] );
 	}
 
 	/**
@@ -124,14 +124,14 @@ class Api extends WP_REST_Controller {
 		$key = $request->get_param( 'flag' );
 
 		if ( ! is_string( $key ) ) {
-			wp_die( new WP_Error( 'missing_params', 'Missing required parameters.', array( 'status' => 400 ) ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			wp_die( new WP_Error( 'missing_params', 'Missing required parameters.', [ 'status' => 400 ] ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			return; // @phpstan-ignore-line Return added for the purposes of testing. 
 		}
 
 		$flag = $this->flag_register->get_flag( $key );
 
 		if ( ! $flag ) {
-			wp_die( new WP_Error( 'flag_not_found', 'Flag not found.', array( 'status' => 404 ) ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			wp_die( new WP_Error( 'flag_not_found', 'Flag not found.', [ 'status' => 404 ] ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			return; // @phpstan-ignore-line Return added for the purposes of testing. 
 		}
 
@@ -149,7 +149,7 @@ class Api extends WP_REST_Controller {
 		}
 
 		// Add the flag to the selected users.
-		foreach ( $flag_data['users'] ?? array() as $user_id ) { 
+		foreach ( $flag_data['users'] ?? [] as $user_id ) { 
 			$flag->publish_for_user( absint( $user_id ) );
 		}
 

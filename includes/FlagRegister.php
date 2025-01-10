@@ -46,7 +46,7 @@ class FlagRegister {
 	 *
 	 * @var array<string,Flag>
 	 */
-	private array $flags = array();
+	private array $flags = [];
 
 
 	/**

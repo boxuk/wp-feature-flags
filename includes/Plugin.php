@@ -62,7 +62,7 @@ class Plugin {
 	 */
 	public function deactivate(): void {
 		delete_option( Flag::FLAG_PUBLISH_OPTION );
-		foreach ( get_users( array( 'fields' => 'ID' ) ) as $user_id ) {
+		foreach ( get_users( [ 'fields' => 'ID' ] ) as $user_id ) {
 			delete_user_meta( $user_id, Flag::FLAG_USER_OPTION );
 		}
 		wp_cache_flush();
