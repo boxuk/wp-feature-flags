@@ -27,4 +27,4 @@ built modules 349 KiB (javascript) 29.5 KiB (css/mini-extract) [built]
   ./src/index.tsx + 145 modules 340 KiB [not cacheable] [built] [code generated]
   external "React" 42 bytes [built] [code generated]
   external "ReactDOM" 42 bytes [built] [code generated]
-webpack 5.94.0 compiled successfully in 7776 ms
+webpack 5.94.0 compiled successfully in 7823 ms
