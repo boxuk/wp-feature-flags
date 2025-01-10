@@ -1,0 +1,30 @@
+
+> build
+> wp-scripts build
+
+assets by chunk 134 KiB (name: index)
+  assets by path *.css 145 bytes
+    asset index-rtl.css 73 bytes [emitted] (name: index)
+    asset index.css 72 bytes [emitted] (name: index)
+  asset index.js 134 KiB [emitted] [minimized] (name: index)
+  asset index.asset.php 289 bytes [emitted] (name: index)
+assets by path ./*.css 58.9 KiB
+  asset ./style-index-rtl.css 29.4 KiB [emitted] (name: ./style-index) (id hint: style)
+  asset ./style-index.css 29.4 KiB [emitted] (name: ./style-index) (id hint: style)
+Entrypoint index 193 KiB = 6 assets
+orphan modules 1.04 MiB (javascript) 937 bytes (runtime) [orphan] 761 modules
+runtime modules 4.46 KiB 7 modules
+built modules 349 KiB (javascript) 29.5 KiB (css/mini-extract) [built]
+  cacheable modules 8.97 KiB (javascript) 29.5 KiB (css/mini-extract)
+    javascript modules 8.97 KiB
+      modules by path ../../node_modules/react/ 1.05 KiB 2 modules
+      modules by path ../../node_modules/use-sync-external-store/ 1.25 KiB 2 modules
+      ../../node_modules/react-dom/client.js 619 bytes [built] [code generated]
+      ../../node_modules/remove-accents/index.js 6.07 KiB [built] [code generated]
+    css modules 29.5 KiB
+      css ../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[3].use[1]!../../node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[3].use[2]!../../node_modules/@wordpress/dataviews/build-style/style.css 29.4 KiB [built] [code generated]
+      css ../../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[3].use[1]!../../node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[3].use[2]!../../node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[3].use[3]!./src/styles.scss 71 bytes [built] [code generated]
+  ./src/index.tsx + 145 modules 340 KiB [not cacheable] [built] [code generated]
+  external "React" 42 bytes [built] [code generated]
+  external "ReactDOM" 42 bytes [built] [code generated]
+webpack 5.94.0 compiled successfully in 7776 ms

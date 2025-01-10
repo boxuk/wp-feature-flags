@@ -12,35 +12,24 @@
  * Description: A plugin used to manage the publishing of features.
  * Author: Box UK
  * Author URI: https://www.boxuk.com/
- * Version: 0.1
+ * Version: 0.3.3
  * License: GPLv3+
  * License URI: https://www.gnu.org/licenses/gpl-3.0.txt
  * Text Domain: boxuk
  * Domain Path: /languages/
- * Requires PHP: 7.2
- * Requires at least: 5.0
- * Tested up to: 5.8
+ * Requires PHP: 8.0
+ * Requires at least: 6.7
+ * Tested up to: 6.7
  */
 
-declare ( strict_types=1 );
+declare(strict_types=1);
 
-use BoxUk\WpFeatureFlags\Activation;
-use BoxUk\WpFeatureFlags\FeatureManager;
 use BoxUk\WpFeatureFlags\Plugin;
-use BoxUk\WpFeatureFlags\Flag\Flag;
-use BoxUk\WpFeatureFlags\FlagRegister\FlagRegister;
 
 // If this file is called directly, abort.
-if ( ! defined( 'WPINC' ) ) {
+if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
-
-define( 'WP_FEATURE_FLAGS_VERSION', '0.1' );
-// Kebab case - used for URLs, folder names.
-define( 'WP_FEATURE_FLAGS_PREFIX', 'wp-feature-flags' );
-
-// Snake case - used in functions, filter names, database values.
-define( 'WP_FEATURE_FLAGS_PREFIX_SNAKE', 'wp_feature_flags' );
 
 $plugin_base_url = plugin_dir_url( __FILE__ );
 define( 'WP_FEATURE_FLAGS_PLUGIN_URL', $plugin_base_url );
@@ -50,7 +39,8 @@ define( 'WP_FEATURE_FLAGS_PLUGIN_URL', $plugin_base_url );
  *
  * @return bool
  */
-function wp_feature_flags_plugin_autoload(): bool { // phpcs:ignore NeutronStandard.Globals.DisallowGlobalFunctions.GlobalFunctions
+function wp_feature_flags_plugin_autoload(): bool {
+ // phpcs:ignore NeutronStandard.Globals.DisallowGlobalFunctions.GlobalFunctions
 	$autoloader = __DIR__ . '/vendor/autoload.php';
 	if ( file_exists( $autoloader ) ) {
 		require_once $autoloader; // phpcs:ignore WordPressVIPMinimum.Files.IncludingFile.UsingVariable
@@ -63,7 +53,9 @@ if ( ! wp_feature_flags_plugin_autoload() ) {
 	return;
 }
 
-register_activation_hook( __FILE__, [ Activation::class, 'activate' ] );
+$app = new Plugin();
 
-$app = new Plugin( new FeatureManager() );
+register_activation_hook( __FILE__, array( $app, 'activate' ) );
+register_deactivation_hook( __FILE__, array( $app, 'deactivate' ) );
+
 $app->run();
