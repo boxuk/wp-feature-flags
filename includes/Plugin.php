@@ -47,15 +47,6 @@ class Plugin {
 	}
 
 	/**
-	 * Activate the plugin.
-	 * 
-	 * @return void
-	 */
-	public function activate(): void {
-		// nothing to do here...
-	}
-
-	/**
 	 * Deactivate the plugin.
 	 * 
 	 * @return void

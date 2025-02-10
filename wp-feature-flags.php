@@ -55,7 +55,6 @@ if ( ! wp_feature_flags_plugin_autoload() ) {
 
 $app = new Plugin();
 
-register_activation_hook( __FILE__, [ $app, 'activate' ] );
 register_deactivation_hook( __FILE__, [ $app, 'deactivate' ] );
 
 $app->run();
